@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      // 前端项目配合webpack的resolve的alias字段，使别名路径可以自动跳转(具体路径需二者对照)
+      "@/*": ["./src/*"]
+    }
+  }
+}
