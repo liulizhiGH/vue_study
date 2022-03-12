@@ -1,6 +1,6 @@
 <template>
   <div>
-    这是concat组件
+    子item组件
   </div>
 </template>
 

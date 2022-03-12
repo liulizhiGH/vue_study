@@ -1,20 +1,36 @@
 const path = require("path");
 const HTMLWebpackPlugin = require("html-webpack-plugin");
 const { VueLoaderPlugin } = require("vue-loader");
-// 开发环境，不配置任何压缩，任何hash,不提取任何css文件
+// 提取各个css文件
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+// 压缩css文件
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+// 压缩js文件
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
   entry: {
     entry: "./src/index.js",
   },
-  mode: "development",
-  devtool: "source-map",
+  mode: "production",
   devServer: {
     port: 3000,
     hot: true,
     historyApiFallback: true,
   },
   optimization: {
+    // 需要同时配置css压缩和js压缩
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            // 去除所有的console.log
+            pure_funcs: ["console.log"],
+          },
+        },
+      }),
+      new CssMinimizerPlugin(),
+    ],
     splitChunks: {
       chunks: "all",
     },
@@ -44,7 +60,7 @@ module.exports = {
       {
         test: /.css$/,
         use: [
-          "style-loader",
+          MiniCssExtractPlugin.loader,
           {
             loader: "css-loader",
             options: {
@@ -60,7 +76,7 @@ module.exports = {
       {
         test: /.less$/,
         use: [
-          "style-loader",
+          MiniCssExtractPlugin.loader,
           {
             loader: "css-loader",
             options: {
@@ -104,10 +120,16 @@ module.exports = {
       title: "Title",
       template: path.resolve(__dirname, "./public/index.html"),
     }),
+    new MiniCssExtractPlugin({
+      // 使用contenthash
+      filename: "[name].[contenthash:8].css",
+      chunkFilename: "[id].[contenthash:8].css",
+    }),
   ],
   output: {
-    filename: "[name].bundle.js",
-    chunkFilename: "chunk.[name].js",
+    // 使用chunkhash
+    filename: "[name].[chunkhash:8].bundle.js",
+    chunkFilename: "chunk.[name].[chunkhash:8].js",
     path: path.resolve(__dirname, "dist"),
     publicPath: "/", // 写好此路径，防止（开发or生产）服务器找不到打包出来的文件，“/”代表web服务器的根目录
   },

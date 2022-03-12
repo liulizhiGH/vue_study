@@ -1,12 +1,16 @@
 <template>
   <div>
-    这是concat组件
+    <list-item/>
   </div>
 </template>
 
 <script>
+import ListItem from './ListItem'
   export default {
-    
+    components:{
+      ListItem
+    },
+
   }
 </script>
 
