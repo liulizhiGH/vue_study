@@ -11,10 +11,10 @@ Vue.use(VueRouter);
 export const router = new VueRouter({
   mode: "history",
   routes: [
-    { path: "/", component: Home },
-    { path: "/concat/list", component: Concat },
-    { path: "/about", component: About },
-    { path: "/todolist", component: TodoList },
-    { path: "*", component: Page404 },
+    { name: "home", path: "/", component: Home },
+    { name: "concat", path: "/concat", component: Concat },
+    { name: "about", path: "/about/", component: About },
+    { name: "todolist", path: "/todolist", component: TodoList },
+    { name: "404page", path: "*", component: Page404 },
   ],
 });
