@@ -1,7 +1,7 @@
 <template>
   <div>
     这是about组件
-    <h1>{{ this.$store.state.all }}</h1>
+    <h1>{{ $store.state.all }}asdasdadad</h1>
     <h1 ref="customname">hello vue---{{ $data.msg }}</h1>
     <button @click="$router.push('/')">前往home---$router123</button>
     <button @click="gohome($event.target)">前往home---this.$router</button>
