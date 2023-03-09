@@ -13,6 +13,7 @@ module.exports = {
     port: 3000,
     hot: true,
     historyApiFallback: true,
+    open: true,
   },
   optimization: {
     splitChunks: {
@@ -55,7 +56,14 @@ module.exports = {
             },
           },
         ],
-        include: [path.resolve(__dirname, "./src")],
+        include: [
+          path.resolve(__dirname, "./src"),
+          // 如果使用了elementui框架，记得处理它的css文件
+          path.resolve(
+            __dirname,
+            "./node_modules/element-ui/lib/theme-chalk/index.css"
+          ),
+        ],
       },
       {
         test: /.less$/,
@@ -79,10 +87,7 @@ module.exports = {
             },
           },
         ],
-        include: [
-          path.resolve(__dirname, "./src"),
-          path.resolve(__dirname, "./node_modules/antd/dist/antd.less"),
-        ],
+        include: [path.resolve(__dirname, "./src")],
       },
       {
         test: /\.(png|jpg|gif)$/i,

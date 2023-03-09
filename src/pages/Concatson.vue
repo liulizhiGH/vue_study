@@ -1,7 +1,6 @@
 <template>
-  <div>
-    这是concat组件
-    <router-view>此处会渲染子路由</router-view>
+  <div class="box">
+    这是concatson组件
   </div>
 </template>
 
@@ -12,5 +11,7 @@
 </script>
 
 <style lang="less" scoped>
-
+  .box{
+    border:3px solid red
+  }
 </style>

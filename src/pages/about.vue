@@ -1,46 +1,42 @@
 <template>
   <div>
     这是about组件
-    <h1>{{ $store.state.all }}asdasdadad</h1>
+    <h1>{{ lll }}局部数据data</h1>
+    <h1>{{ zxc }}局部数据computed</h1>
+    <h1>{{ $store.state.all }}直接取store</h1>
+    <h1>{{ all }}使用mapState映射取同名计算属性</h1>
     <h1 ref="customname">hello vue---{{ $data.msg }}</h1>
-    <button @click="$router.push('/')">前往home---$router123</button>
-    <button @click="gohome($event.target)">前往home---this.$router</button>
-    <button @click="withparams">withparams</button>
+    <br />
+    <button @click="updateValue('这是payload')">mapMutations</button>
+    <button @click="kkk('a啊实打实大苏打')">mapAction</button>
   </div>
 </template>
 
 <script>
+import { mapState, mapMutations, mapActions } from "vuex";
+
 export default {
   data() {
     return {
-      msg: "this就是实例",
+      lll: this.$store.state.all,
     };
   },
-  created() {
-    console.log(this.$refs.customname, "customname");
-    console.log(this.$route, "route");
-    console.log(this.$router, "router");
+  created () {
+    this.kkk()
   },
-  mounted() {
-    console.log(this.$refs.customname, "customname");
+  computed: {
+    zxc(){
+      return this.$store.state.all
+    } ,
+    ...mapState(["all"]),
   },
   methods: {
-    gohome(p, e) {
-      console.log(p, "ppp");
-      console.log(e, "777");
-      this.$router.push("/");
-    },
-    withparams() {
-      this.$router.push({
-        name: "home",
-        params: {
-          userid: "1234567",
-        },
-        query: {
-          go: "gogogo",
-        },
-      });
-    },
+    ...mapMutations([
+      "updateValue", //also supports payload `this.nameOfMutation(amount)`
+    ]),
+    ...mapActions([
+      "kkk", //also supports payload `this.nameOfAction(amount)`
+    ]),
   },
 };
 </script>
