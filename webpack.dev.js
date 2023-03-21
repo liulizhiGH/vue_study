@@ -30,16 +30,20 @@ module.exports = {
     rules: [
       {
         test: /.vue$/,
-        use: {
-          loader: "vue-loader",
-        },
+        use: [
+          {
+            loader: "vue-loader",
+          },
+        ],
         include: [path.resolve(__dirname, "./src")],
       },
       {
         test: /.js$/,
-        use: {
-          loader: "babel-loader",
-        },
+        use: [
+          {
+            loader: "babel-loader",
+          },
+        ],
         include: [path.resolve(__dirname, "./src")],
       },
       {
